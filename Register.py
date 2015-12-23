@@ -1,6 +1,3 @@
-__author__ = '_Intel_'
-
-
 class Register():
 
     def __init__(self, name, accumulator, flags):
