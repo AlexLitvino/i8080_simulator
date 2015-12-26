@@ -1,7 +1,9 @@
 import unittest
 
 from utilities import get_bit
+from utilities import get_bits
 
+#values for testing get_bit and get_bits functions
 value0 = 0b0
 value1 = 0b1
 value4 = 0b100
@@ -32,8 +34,27 @@ class TestGetBit(unittest.TestCase):
         self.assertEqual(get_bit(value6, 3), 0b0)
 
 
-if __name__ == "__main__":
-    #unittest.main()
+class TestGetBits(unittest.TestCase):
 
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestGetBit)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    def test_value0(self):
+        self.assertEqual(get_bits(value0, 0, 1), 0b0)
+        self.assertEqual(get_bits(value0, 0, 4), 0b0)
+        self.assertEqual(get_bits(value0, 2, 5), 0b0)
+
+    def test_value6(self):
+        self.assertEqual(get_bits(value6, 0, 1), 0b10)
+        self.assertEqual(get_bits(value6, 0, 2), 0b110)
+        self.assertEqual(get_bits(value6, 0, 5), 0b110)
+        self.assertEqual(get_bits(value6, 0, 5), 0b110)
+        self.assertEqual(get_bits(value6, 1, 2), 0b11)
+        self.assertEqual(get_bits(value6, 2, 3), 0b01)
+        self.assertEqual(get_bits(value6, 3, 6), 0b0)
+
+if __name__ == "__main__":
+    unittest.main()
+
+    #suite = unittest.TestLoader().loadTestsFromTestCase(TestGetBit)
+    #unittest.TextTestRunner(verbosity=2).run(suite)
+
+    #suite = unittest.TestLoader().loadTestsFromTestCase(TestGetBits)
+    #unittest.TextTestRunner(verbosity=2).run(suite)
