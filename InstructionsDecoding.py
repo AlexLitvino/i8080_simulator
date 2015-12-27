@@ -70,5 +70,3 @@ ccc = {
 
 
 
-def get_bit(byte, index):
-    raise NotImplemented
