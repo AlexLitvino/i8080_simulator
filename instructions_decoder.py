@@ -41,13 +41,16 @@ def cmd_decoder(cmd):
     yyy = get_bits(cmd, 3, 5)
     zzz = get_bits(cmd, 0, 2)
 
+    decode_command = None
+
     if page == 0b00:
-        page00_handler()
+        decode_command= page00_handler()
     elif page == 0b01:
-        page01_handler(yyy, zzz)
+        decode_command = page01_handler(yyy, zzz)
     elif page == 0b10:
-        page10_handler()
+        decode_command = page10_handler()
     elif page == 0b11:
-        page11_handler()
+        decode_command = page11_handler()
     else:
         raise Exception("Incorrect command page.")
+    return decode_command
