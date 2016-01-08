@@ -1,0 +1,1 @@
+MEMORY_SIZE = 64 * 1024
