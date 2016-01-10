@@ -1,5 +1,6 @@
 class IncorrectCommandException(Exception):
     pass
 
-class IncorrectCommandPage(Exception):
+
+class IncorrectCommandPageException(Exception):
     pass
