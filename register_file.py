@@ -1,5 +1,5 @@
 from misc_registers import Accumulator
-import register
+from register import Register
 
 
 class RegisterFile():
