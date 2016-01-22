@@ -12,5 +12,5 @@ class RegisterFile():
         self.B = Register("D")
         self.E = Register("E")
         self.H = Register("H")
-        self.H = Register("L")
+        self.L = Register("L")
         self.register = []
