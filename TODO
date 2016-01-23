@@ -1,0 +1,5 @@
+
+- [AL 01/23/16] Cover cmd_decoder() in instructions_decoder.py with tests for all commands.
+- [AL 01/23/16] Add prefix or suffix "cmd" to commands names in commands.py.
+
+- [AL 01/23/16] Cover populate_memory() from hex_reader.py with tests.
