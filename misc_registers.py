@@ -1,7 +1,9 @@
-import Register
+from register import Register
+
 
 class Accumulator(Register):
     pass
+
 
 class StatusRegister():
 
@@ -11,6 +13,7 @@ class StatusRegister():
 
 class StackPointer():
     pass
+
 
 class ProgramCounter():
     pass
