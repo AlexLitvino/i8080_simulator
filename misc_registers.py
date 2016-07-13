@@ -5,6 +5,10 @@ class Accumulator(Register):
     pass
 
 
+class FLAGSRegister():
+    pass
+
+
 class StatusRegister():
 
     def __init__(self):
