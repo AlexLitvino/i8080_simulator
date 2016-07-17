@@ -7,7 +7,7 @@
 ;L:  LDAX B
 ;    OUT port
 ;    INX BC
-;    DEC D
+;    DCR D
 ;    JNZ L
 ;    HLT
 
@@ -17,7 +17,7 @@
 0002    01
 0003    00
 0004    80
-0005    02
+0005    0A
 0006    D3
 0007    FF;change to port address, FF is example
 0008    03
