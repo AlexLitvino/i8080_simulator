@@ -1,5 +1,3 @@
-
-
 def get_bit(value, index):
     """
     Returns bit in position index from byte value
@@ -23,3 +21,26 @@ def get_bits(value, start_index, end_index):
     mask = 2 ** (end_index - start_index + 1) - 1
     mask = mask << start_index
     return (value & mask) >> start_index
+
+
+def hex_formatter(decimal_number, is_capitalized=False):
+    """
+    Returns decimal number converted to hex string with prefix '0x' and leading zero if number less than 16
+    :param decimal_number: number to convert to hex
+    :param is_capitalized: True, if hex string should be uppercased. False by default
+    :return: decimal number converted to hex string
+    """
+    hex_string = ""
+    if 0 <= decimal_number < 16:
+        hex_string = str(hex(decimal_number))
+        hex_string = hex_string[0:2] + "0" + hex_string[2]
+    elif decimal_number >= 16:
+        hex_string = str(hex(decimal_number))
+    else:
+        raise NotImplemented()
+    if is_capitalized:
+        hex_string = hex_string[0:2] + hex_string[2:].upper()
+    return hex_string
+
+if __name__ == '__main__':
+    pass
