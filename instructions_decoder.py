@@ -163,7 +163,7 @@ def page11_handler(yyy, zzz):
     elif zzz == 0b010:
         #Conditional Jump Instructions
         if yyy == ccc[NZ]:
-            command == rnz
+            command = jnz
         elif yyy == ccc[Z]:
             command = jz
         elif yyy == ccc[NC]:
@@ -258,3 +258,6 @@ def cmd_decoder(cmd):
     else:
         raise IncorrectCommandPageException()
     return decode_command
+
+if __name__ == '__main__':
+    pass
