@@ -1,4 +1,3 @@
-
 #registers
 A = "A"
 F = "F"
@@ -26,18 +25,6 @@ PE = "PE"
 P = "P"
 M = "M"
 
-'''
-rrr = {
-    B: 0b000,
-    C: 0b001,
-    D: 0b010,
-    E: 0b011,
-    H: 0b100,
-    L: 0b101,
-    #F: 0b110,#not used, flag register excluded
-    A: 0b111
-}
-'''
 rrr = {
     0b000: B,
     0b001: C,
@@ -49,12 +36,11 @@ rrr = {
     0b111: A
 }
 
-
 dd = {
-    BC: 0b00,
-    DE: 0b01,
-    HL: 0b10,
-    SP: 0b11
+    0b00: BC,
+    0b01: DE,
+    0b10: HL,
+    0b11: SP
 }
 
 qq = {
@@ -66,11 +52,11 @@ qq = {
 
 ccc = {
     NZ: 0b000,
-    Z:  0b001,
+    Z: 0b001,
     NC: 0b010,
-    C:  0b011,
+    C: 0b011,
     PO: 0b100,
     PE: 0b101,
-    P:  0b110,
-    M:  0b111
+    P: 0b110,
+    M: 0b111
 }
