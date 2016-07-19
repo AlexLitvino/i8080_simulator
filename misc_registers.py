@@ -70,3 +70,6 @@ class ProgramCounter():
 
     def inc(self):
         self.value += 1
+
+if __name__ == '__main__':
+    pass
