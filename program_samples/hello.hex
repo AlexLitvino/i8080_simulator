@@ -12,26 +12,27 @@
 ;    HLT
 
 
-0000    16
-0001    05
-0002    01
-0003    00
-0004    80
-0005    0A
-0006    D3
-0007    FF;change to port address, FF is example
-0008    03
-0009    89
-000A    C2
-000B    00
-000C    05
+0000    16;MVI
+0001    05;5h
+0002    01;LXI BC
+0003    00;00h
+0004    80;80h
+0005    0A;LDAX B
+0006    D3;OUT
+0007    FF;change to port address, FF is example;FFh
+0008    03; INX BC
+0009    15;changed from 89;DCR D
+000A    C2;JNZ L
+000B    05;
+000C    00
+000D    76
 
 
 
 
 
-8000    48
-8001    65
-8002    6C
-8003    6C
-8004    6F
+8000    48;72d
+8001    65;101d
+8002    6C;108d
+8003    6C;108d
+8004    6F;111d
