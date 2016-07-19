@@ -1,6 +1,3 @@
-
-
-
 commands = []
 
 inr = "inr"
@@ -99,4 +96,3 @@ cpo = "cpo"
 cpe = "cpe"
 cp = "cp"
 cm = "cm"
-
