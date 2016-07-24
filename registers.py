@@ -1,4 +1,4 @@
-#registers
+# registers
 A = "A"
 F = "F"
 B = "B"
@@ -8,18 +8,18 @@ E = "E"
 H = "H"
 L = "L"
 
-#register pairs
+# register pairs
 BC = "BC"
 DE = "DE"
 HL = "HL"
 SP = "SP"
 AF = "AF"
 
-#condition used in jump
+# conditions used in jump
 NZ = "NZ"
 Z = "Z"
 NC = "NC"
-C = "C"
+C = "C"  # TODO: the same as register, should be chaged
 PO = "PO"
 PE = "PE"
 P = "P"
@@ -32,7 +32,7 @@ rrr = {
     0b011: E,
     0b100: H,
     0b101: L,
-    #0b110: F,#not used, flag register excluded
+    # 0b110: F,#not used, flag register excluded
     0b111: A
 }
 
