@@ -13,5 +13,5 @@ class Register():
 
     def add(self, summand):
         self.value = self.value + summand
-        #register flags update
+        # register flags update
         self.normalization()
