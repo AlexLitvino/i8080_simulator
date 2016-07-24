@@ -5,7 +5,7 @@ from utilities import hex_formatter
 class Memory():
 
     def __init__(self):
-        self._memory = [0] * MEMORY_SIZE  #memory initialized with zero bytes
+        self._memory = [0] * MEMORY_SIZE  # memory initialized with zero bytes
 
     def __getitem__(self, key):
         if 0 <= key <= MEMORY_SIZE - 1:
