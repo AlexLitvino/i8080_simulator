@@ -3,21 +3,23 @@ from hex_reader import populate_memory
 from instructions_decoder import cmd_decoder
 from register_file import RegisterFile
 from utilities import hex_formatter
+from port import Port
+from constants import _IN, _OUT
 
 from misc_registers import *
 
 
 class Processor():
-    MAX_LOOP = 30
+    _MAX_LOOP = 30
 
     def __init__(self, file_name):
         self.file_name = file_name
         self.memory = Memory()
         self.register_file = RegisterFile()
-        #set PC to 0
+        # set PC to 0
 
         # TODO: None parameters, should be avoided?
-        self.A = Accumulator("A", None, None)#accumulator
+        self.A = Accumulator("A", None, None)  # accumulator
         self.F = StatusRegister()
 
         self.PC = ProgramCounter()
@@ -30,6 +32,10 @@ class Processor():
         self.H = Register("H", self.A, self.F)
         self.L = Register("L", self.A, self.F)
 
+        self.in_ports = {}
+        self.out_ports = {}
+
+        self.frequency = 1
         self._halt_flag = False
 
     def start(self):
@@ -38,6 +44,34 @@ class Processor():
     def load(self):
         self.memory._memory = populate_memory(self.file_name)
         self.memory.dump()
+
+    def dump(self):
+        print('*'*20)
+        print("A:" + hex_formatter(self.A.value) + '\t' + "F:" + "UNKNOWN")  # TODO: should add bin formatter or special printing for F register
+        print("B:" + hex_formatter(self.B.value) + '\t' + "C:" + hex_formatter(self.C.value))
+        print("D:" + hex_formatter(self.D.value) + '\t' + "E:" + hex_formatter(self.E.value))
+        print("H:" + hex_formatter(self.H.value) + '\t' + "L:" + hex_formatter(self.L.value))
+        print("PC:" + hex_formatter(self.PC.value))
+        print("SP:" + "UNKNOWN")
+        print('*'*20)
+
+    def start_from_address(self, start_address):
+        self.PC.value = start_address
+
+    def _perform_clock_cycles(self, cycles):
+        pass
+
+    def get_port(self, port_number, direction):
+        port = None
+        ports_list = {_IN: self.in_ports, _OUT: self.out_ports}.get(direction, None)
+        if port_number in ports_list:
+            port = ports_list[port_number]
+        else:
+            port = Port(port_number, direction)
+            ports_list[port_number] = port
+        return port
+
+    COMMAND_DICT = {}  # TODO: Is it necessary variable?
 
     def run(self):
         iteration = 0
@@ -65,13 +99,68 @@ class Processor():
                 break
 
             iteration += 1
-            if iteration >= Processor.MAX_LOOP:
+            if iteration >= Processor._MAX_LOOP:
                 break
 
     def _get_command_handler(self, cmd_name):
         print(cmd_name)
         command = self.__getattribute__("_cmd_" + cmd_name + "_handler")
         return command
+
+    ####################################################################################################################
+    # Methods to update flags
+    ####################################################################################################################
+    def _update_S_flag(self, value):
+        if get_bit(value, 7) == 1:
+            self.F.set_flag('S')
+        else:
+            self.F.clear_flag('S')
+
+    def _update_Z_flag(self, value):
+        if value == 0:
+            self.F.set_flag('Z')
+        else:
+            self.F.clear_flag('Z')
+
+    def _update_A_flag(self, value):
+        raise NotImplementedError("Updating A flag is not implemented yet.")
+        '''
+        if condition:
+            self.F.set_flag('A')
+        else:
+            self.F.clear_flag('A')
+        '''
+
+    def _update_P_flag(self, value):
+        binary_string = bin(value)
+        unit_number = binary_string.count('1')
+        if unit_number % 2 == 0:
+            self.F.set_flag('P')
+        else:
+            self.F.clear_flag('P')
+
+    def _update_C_flag(self, value):
+        raise NotImplementedError("Updating C flag is not implemented yet.")
+        '''
+        if condition:
+            self.F.set_flag('C')
+        else:
+            self.F.clear_flag('C')
+        '''
+
+    '''
+    S - Sign Flag
+    Z - Zero Flag
+    0 - Not used, always zero
+    A - also called AC, Auxiliary Carry Flag
+    0 - Not used, always zero
+    P - Parity Flag
+    1 - Not used, always one
+    C - Carry Flag
+    '''
+    ####################################################################################################################
+    # Command handlers section
+    ####################################################################################################################
 
     def _cmd_mvi_handler(self, operand1, operand2):
         print("In MVI")
@@ -96,7 +185,7 @@ class Processor():
 
     def _cmd_ldax_handler(self, operand1, operand2):
         print("In LDAX")
-        #Загрузить A из ячейки с адресом Loc(BC)
+        # Load A from the memory  cell with address Loc(BC)
         rp = operand1
         rh = self.__getattribute__(rp[0])
         print("rh::" + str(rh.name))
@@ -140,8 +229,10 @@ class Processor():
         #TODO: change flags
         self.PC.inc()
         # TODO: ZSPA flags should be set
-        if reg.value == 0:
-            self.F.set_flag('Z')
+        self._update_Z_flag(reg.value)
+        self._update_S_flag(reg.value)
+        self._update_P_flag(reg.value)
+        #self._update_A_flag(reg.value)#TODO: uncomment when _update_A_flag will be implemented
         pass
 
     def _cmd_jnz_handler(self, operand1, operand2):
@@ -165,22 +256,15 @@ class Processor():
         self._halt_flag = True
         pass
 
-    def dump(self):
-        print('*'*20)
-        print("A:" + hex_formatter(self.A.value) + '\t' + "F:" + "UNKNOWN")#TODO: should add bin formatter or special printing for F register
-        print("B:" + hex_formatter(self.B.value) + '\t' + "C:" + hex_formatter(self.C.value))
-        print("D:" + hex_formatter(self.D.value) + '\t' + "E:" + hex_formatter(self.E.value))
-        print("H:" + hex_formatter(self.H.value) + '\t' + "L:" + hex_formatter(self.L.value))
-        print("PC:" + hex_formatter(self.PC.value))
-        print("SP:" + "UNKNOWN")
-        print('*'*20)
-
-    COMMAND_DICT = {}  # TODO: Is it necessary variable?
-
-
 if __name__ == '__main__':
     file_name = "program_samples\hello.hex"
 
     processor = Processor(file_name)
+
+    # port configuration
+    processor.get_port(255, "IN").set_callback(print)
+    processor.get_port(255, "IN").set_value(15)
+    processor.get_port(255, "OUT").get_value()
+
     processor.load()
     processor.run()
