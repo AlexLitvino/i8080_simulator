@@ -129,9 +129,9 @@ def page11_handler(yyy, zzz):
     operand_2 = None
 
     if zzz == 0b000:
-        #Conditional Return Instructions
+        # Conditional Return Instructions
         if yyy == ccc[NZ]:
-            command == rnz
+            command = rnz
         elif yyy == ccc[Z]:
             command = rz
         elif yyy == ccc[NC]:
@@ -161,7 +161,7 @@ def page11_handler(yyy, zzz):
         command = sphl
 
     elif zzz == 0b010:
-        #Conditional Jump Instructions
+        # Conditional Jump Instructions
         if yyy == ccc[NZ]:
             command = jnz
         elif yyy == ccc[Z]:
@@ -197,9 +197,9 @@ def page11_handler(yyy, zzz):
         command = ei
 
     elif zzz == 0b100:
-        #Conditional Call Instructions
+        # Conditional Call Instructions
         if yyy == ccc[NZ]:
-            command == cnz
+            command = cnz
         elif yyy == ccc[Z]:
             command = cz
         elif yyy == ccc[NC]:
@@ -237,7 +237,7 @@ def page11_handler(yyy, zzz):
 
 def cmd_decoder(cmd):
 
-    #cmd = XX YYY ZZZ#command structure for decoding
+    # cmd = XX YYY ZZZ#command structure for decoding
 
     xx = get_bits(cmd, 6, 7)
     page = xx
@@ -248,7 +248,7 @@ def cmd_decoder(cmd):
     decode_command = None
 
     if page == 0b00:
-        decode_command= page00_handler(yyy, zzz)
+        decode_command = page00_handler(yyy, zzz)
     elif page == 0b01:
         decode_command = page01_handler(yyy, zzz)
     elif page == 0b10:
