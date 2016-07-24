@@ -36,12 +36,12 @@ class StatusRegister():
         self.value = 0b00000010
 
     def set_flag(self, flag_name):
-        mask = (1<<flags_bits[flag_name])
+        mask = (1 << flags_bits[flag_name])
         self.value = self.value | mask
 
     def clear_flag(self, flag_name):
-        n= flags_bits[flag_name]
-        mask = ((pow(2, 7 - n) - 1) << (7- n)) | (pow(2, n) - 1)
+        n = flags_bits[flag_name]
+        mask = ((pow(2, 7 - n) - 1) << (7 - n)) | (pow(2, n) - 1)
         self.value = self.value & mask
 
     def get_flag(self, flag_name):
