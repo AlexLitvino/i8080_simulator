@@ -1,21 +1,23 @@
-from memory import Memory
+import sys
+sys.path.append("./../common")
+
+from microprocessor.memory import Memory
+from microprocessor.register import Register
+from microprocessor.instructions_decoder import cmd_decoder
+from microprocessor.misc_registers import *
+from microprocessor.port import Port
 from hex_reader import populate_memory
-from instructions_decoder import cmd_decoder
-from register_file import RegisterFile
-from utilities import hex_formatter
-from port import Port
-from constants import _IN, _OUT
-
-from misc_registers import *
+from common.constants import _IN, _OUT
+from common.utilities import get_bit, hex_formatter
 
 
-class Processor():
+class Processor:
     _MAX_LOOP = 30
 
     def __init__(self, file_name):
         self.file_name = file_name
         self.memory = Memory()
-        self.register_file = RegisterFile()
+        #self.register_file = RegisterFile()
         # set PC to 0
 
         # TODO: None parameters, should be avoided?
@@ -257,7 +259,7 @@ class Processor():
         pass
 
 if __name__ == '__main__':
-    file_name = "program_samples\hello.hex"
+    file_name = "./../program_samples/hello.hex"
 
     processor = Processor(file_name)
 
