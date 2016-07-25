@@ -1,5 +1,7 @@
 import sys
+sys.path.append("./../")
 sys.path.append("./../common")
+#sys.path.append("./../microprocessor")
 
 from microprocessor.memory import Memory
 from microprocessor.register import Register
