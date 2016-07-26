@@ -1,3 +1,4 @@
+from time import clock
 import sys
 sys.path.append("./../")
 sys.path.append("./../common")
@@ -12,6 +13,7 @@ from hex_reader import populate_memory
 from common.constants import _IN, _OUT
 from common.utilities import get_bit, hex_formatter
 
+command_clock_dictionary = {}  # TODO: create dictionary with commands timing
 
 class Processor:
     _MAX_LOOP = 30
@@ -81,7 +83,7 @@ class Processor:
         iteration = 0
         while True:
             print("Iteration " + str(iteration) + " Start" + '*'*10)
-            self.dump()
+            #self.dump()
             print("PC = " + str(self.PC.value))
             print("MEMORY = " + str(self.memory[self.PC.value]))
             cmd_tuple = cmd_decoder(self.memory[self.PC.value])
@@ -95,7 +97,7 @@ class Processor:
 
             self._get_command_handler(cmd_name)(operand1, operand2)
 
-            self.dump()
+            #self.dump()
             print("Iteration " + str(iteration) + " End" + '*'*10)
             print()
 
@@ -111,62 +113,15 @@ class Processor:
         command = self.__getattribute__("_cmd_" + cmd_name + "_handler")
         return command
 
-    ####################################################################################################################
-    # Methods to update flags
-    ####################################################################################################################
-    def _update_S_flag(self, value):
-        if get_bit(value, 7) == 1:
-            self.F.set_flag('S')
-        else:
-            self.F.clear_flag('S')
+    def _clock(self, number_of_tacts, correction):
+        pass
 
-    def _update_Z_flag(self, value):
-        if value == 0:
-            self.F.set_flag('Z')
-        else:
-            self.F.clear_flag('Z')
-
-    def _update_A_flag(self, value):
-        raise NotImplementedError("Updating A flag is not implemented yet.")
-        '''
-        if condition:
-            self.F.set_flag('A')
-        else:
-            self.F.clear_flag('A')
-        '''
-
-    def _update_P_flag(self, value):
-        binary_string = bin(value)
-        unit_number = binary_string.count('1')
-        if unit_number % 2 == 0:
-            self.F.set_flag('P')
-        else:
-            self.F.clear_flag('P')
-
-    def _update_C_flag(self, value):
-        raise NotImplementedError("Updating C flag is not implemented yet.")
-        '''
-        if condition:
-            self.F.set_flag('C')
-        else:
-            self.F.clear_flag('C')
-        '''
-
-    '''
-    S - Sign Flag
-    Z - Zero Flag
-    0 - Not used, always zero
-    A - also called AC, Auxiliary Carry Flag
-    0 - Not used, always zero
-    P - Parity Flag
-    1 - Not used, always one
-    C - Carry Flag
-    '''
     ####################################################################################################################
     # Command handlers section
     ####################################################################################################################
 
     def _cmd_mvi_handler(self, operand1, operand2):
+        command_start_time = clock()
         print("In MVI")
         destination = operand1
         print(destination)
@@ -174,7 +129,8 @@ class Processor:
         self.PC.inc()
         r.value = self.memory[self.PC.value]
         self.PC.inc()
-        pass
+        command_end_time = clock()
+        self._clock(command_clock_dictionary, command_end_time - command_start_time)
 
     def _cmd_lxi_handler(self, operand1, operand2):
         print("In LXI")
@@ -229,14 +185,8 @@ class Processor:
         print("In DCR")
         r = operand1
         reg = self.__getattribute__(r)
-        reg.value -= 1
-        #TODO: change flags
+        reg.dcr()
         self.PC.inc()
-        # TODO: ZSPA flags should be set
-        self._update_Z_flag(reg.value)
-        self._update_S_flag(reg.value)
-        self._update_P_flag(reg.value)
-        #self._update_A_flag(reg.value)#TODO: uncomment when _update_A_flag will be implemented
         pass
 
     def _cmd_jnz_handler(self, operand1, operand2):
@@ -259,6 +209,10 @@ class Processor:
         self.PC.inc()
         self._halt_flag = True
         pass
+
+    ####################################################################################################################
+    # End of command handlers section
+    ####################################################################################################################
 
 if __name__ == '__main__':
     file_name = "./../program_samples/hello.hex"
