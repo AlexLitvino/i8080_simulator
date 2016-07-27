@@ -1,8 +1,8 @@
-from constants import MEMORY_SIZE
-from utilities import hex_formatter
+from common.constants import MEMORY_SIZE
+from common.utilities import hex_formatter
 
 
-class Memory():
+class Memory:
 
     def __init__(self):
         self._memory = [0] * MEMORY_SIZE  # memory initialized with zero bytes
