@@ -1,4 +1,4 @@
-class RegisterPair():
+class RegisterPair:
 
     def __init__(self, name, register_high, register_low):
         self.name = name
