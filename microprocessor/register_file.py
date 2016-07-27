@@ -1,13 +1,12 @@
-from misc_registers import Accumulator, ProgramCounter, StackPointer, StatusRegister
-from register import Register
+from microprocessor.misc_registers import Accumulator, ProgramCounter, StackPointer, StatusRegister
+from microprocessor.register import Register
 
 
-class RegisterFile():
+class RegisterFile:
 
     def __init__(self):
-
         # TODO: None parameters, should be avoided?
-        self.A = Accumulator("A", None, None)#accumulator
+        self.A = Accumulator("A", None, None)  # accumulator
         self.F = StatusRegister()
 
         self.PC = ProgramCounter()
