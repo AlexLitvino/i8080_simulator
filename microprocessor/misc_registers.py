@@ -1,5 +1,5 @@
-from register import Register
-from utilities import get_bit
+from microprocessor.register import Register
+from common.utilities import get_bit
 
 
 class Accumulator(Register):
@@ -15,7 +15,7 @@ flags_bits = {
 }
 
 
-class StatusRegister():
+class StatusRegister:
     """
     Flag register (F) bits:
 
@@ -60,11 +60,11 @@ class StatusRegister():
             return False
 
 
-class StackPointer():
+class StackPointer:
     pass
 
 
-class ProgramCounter():
+class ProgramCounter:
     def __init__(self):
         self.value = 0
 
