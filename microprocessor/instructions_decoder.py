@@ -1,13 +1,13 @@
-from utilities import get_bit
-from utilities import get_bits
+from common.utilities import get_bit
+from common.utilities import get_bits
 
-from commands import *
-from registers import rrr, ccc
-from registers import NZ, Z, NC, C, PO, PE, P, M
-from registers import BC, DE, HL
-from registers import dd, qq
+from common.commands import *
+from common.registers import rrr, ccc
+from common.registers import NZ, Z, NC, C, PO, PE, P, M
+from common.registers import BC, DE, HL
+from common.registers import dd, qq
 
-from exceptions import IncorrectCommandPageException, IncorrectCommandException
+from common.exceptions import IncorrectCommandPageException, IncorrectCommandException
 
 
 def page00_handler(yyy, zzz):
