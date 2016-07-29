@@ -1,8 +1,8 @@
 import unittest
-from instructions_decoder import cmd_decoder
+from microprocessor.instructions_decoder import cmd_decoder
 
-from commands import *
-from registers import A, B, C, D, E, H, L
+from common.commands import *
+from common.registers import A, B, C, D, E, H, L
 
 
 class TestInstructionDecoder(unittest.TestCase):

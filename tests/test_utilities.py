@@ -1,7 +1,7 @@
 import unittest
 
-from utilities import get_bit
-from utilities import get_bits
+from common.utilities import  get_bit
+from common.utilities import get_bits
 
 #values for testing get_bit and get_bits functions
 value0 = 0b0
