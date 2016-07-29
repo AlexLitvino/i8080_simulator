@@ -1,5 +1,5 @@
 import re
-from constants import MEMORY_SIZE
+from common.constants import MEMORY_SIZE
 
 
 def populate_memory(file_path):
@@ -21,5 +21,3 @@ def populate_memory(file_path):
 if __name__ == "__main__":
     file_name = "hello.hex"
     m = populate_memory(file_name)
-
-
