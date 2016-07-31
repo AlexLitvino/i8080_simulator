@@ -7,6 +7,7 @@ D = "D"
 E = "E"
 H = "H"
 L = "L"
+M = "M"  # reference to memory - memory cell with address saved in HL register pair
 
 # register pairs
 BC = "BC"
@@ -19,11 +20,11 @@ AF = "AF"
 NZ = "NZ"
 Z = "Z"
 NC = "NC"
-C = "C"  # TODO: the same as register, should be changed
+C = "C"  # TODO: the same as register C, should be changed
 PO = "PO"
 PE = "PE"
 P = "P"
-M = "M"
+M = "M"  # TODO: the same as reference to memory, should be changed
 
 rrr = {
     0b000: B,
@@ -32,7 +33,7 @@ rrr = {
     0b011: E,
     0b100: H,
     0b101: L,
-    # 0b110: F,#not used, flag register excluded
+    0b110: M,  # reference to memory - memory cell with address saved in HL register pair
     0b111: A
 }
 
