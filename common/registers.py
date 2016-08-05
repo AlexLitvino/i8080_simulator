@@ -14,7 +14,7 @@ BC = "BC"
 DE = "DE"
 HL = "HL"
 SP = "SP"
-AF = "AF"
+PSW = "PSW"
 
 # conditions used in jump
 NZ = "NZ"
@@ -45,10 +45,10 @@ dd = {
 }
 
 qq = {
-    BC: 0b00,
-    DE: 0b01,
-    HL: 0b10,
-    AF: 0b11
+    0b00: BC,
+    0b01: DE,
+    0b10: HL,
+    0b11: PSW
 }
 
 ccc = {
