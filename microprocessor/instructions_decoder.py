@@ -144,7 +144,7 @@ def page11_handler(yyy, zzz):
             command = rpe
         elif yyy == ccc[P]:
             command = rp
-        elif yyy == cc[M]:
+        elif yyy == ccc[M]:
             command = rm
 
     if zzz == 0b001:
@@ -176,7 +176,7 @@ def page11_handler(yyy, zzz):
             command = jpe
         elif yyy == ccc[P]:
             command = jp
-        elif yyy == cc[M]:
+        elif yyy == ccc[M]:
             command = jm
 
     elif yyy == 0b000 and zzz == 0b011:
@@ -212,7 +212,7 @@ def page11_handler(yyy, zzz):
             command = cpe
         elif yyy == ccc[P]:
             command = cp
-        elif yyy == cc[M]:
+        elif yyy == ccc[M]:
             command = cm
 
     elif get_bit(yyy, 0) == 0 and zzz == 0b101:
