@@ -30,6 +30,7 @@ def hex_formatter(decimal_number, is_capitalized=False):
     :param is_capitalized: True, if hex string should be uppercased. False by default
     :return: decimal number converted to hex string
     """
+    # TODO: numbers larger than byte should be processed
     hex_string = ""
     if 0 <= decimal_number < 16:
         hex_string = str(hex(decimal_number))
@@ -37,10 +38,24 @@ def hex_formatter(decimal_number, is_capitalized=False):
     elif decimal_number >= 16:
         hex_string = str(hex(decimal_number))
     else:
-        raise NotImplemented()
+        raise NotImplemented()  # Seems left for negative numbers
     if is_capitalized:
         hex_string = hex_string[0:2] + hex_string[2:].upper()
     return hex_string
+
+
+def bin_formatter(binary_number):
+    """
+    Returns decimal number converted to binary string with prefix '0b' and leading zeroes to complete number to 8 bits
+    :param binary_number: number to convert to binary
+    :return: decimal number converted to binary string
+    """
+    # TODO: some special cases should be processed, for example negative numbers, or large then byte
+    bin_string = str(bin(binary_number))
+    bin_number_length = len(bin_string) - 2
+    if bin_number_length < 8:
+        bin_string = bin_string[0:2] + '0'*(8 - bin_number_length) + bin_string[2:]
+    return bin_string
 
 if __name__ == '__main__':
     pass
