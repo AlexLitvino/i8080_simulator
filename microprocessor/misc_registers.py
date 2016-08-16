@@ -3,7 +3,50 @@ from common.utilities import get_bit
 
 
 class Accumulator(Register):
-    pass
+
+    def rlc(self):
+        b7 = get_bit(self.value, 7)
+        self.value = (self.value << 1) & 0xFF
+
+        if b7 == 0:
+            self.F.clear_flag("A")
+        else:
+            self.F.set_flag("A")
+            self.value += 1
+
+    def rrc(self):
+        b0 = get_bit(self.value, 0)
+        self.value = (self.value >> 1)
+
+        if b0 == 0:
+            self.F.clear_flag("A")
+        else:
+            self.F.set_flag("A")
+            self.value += 1 << 7
+
+    def ral(self):
+        b7 = get_bit(self.value, 7)
+        self.value = (self.value << 1) & 0xFF
+
+        if self.F.is_flag_set("A"):
+            self.value += 1
+
+        if b7 == 0:
+            self.F.clear_flag("A")
+        else:
+            self.F.set_flag("A")
+
+    def rar(self):
+        b0 = get_bit(self.value, 0)
+        self.value = (self.value >> 1)
+
+        if self.F.is_flag_set("A"):
+            self.value += (1 << 7)
+
+        if b0 == 0:
+            self.F.clear_flag("A")
+        else:
+            self.F.set_flag("A")
 
 # TODO: Should it be moved to constant file?
 flags_bits = {
@@ -41,7 +84,7 @@ class StatusRegister:
 
     def clear_flag(self, flag_name):
         n = flags_bits[flag_name]
-        mask = ((pow(2, 7 - n) - 1) << (7 - n)) | (pow(2, n) - 1)
+        mask = ((pow(2, 7 - n) - 1) << (n + 1)) | (pow(2, n) - 1)
         self.value = self.value & mask
 
     def get_flag(self, flag_name):
