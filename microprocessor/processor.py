@@ -12,8 +12,10 @@ from microprocessor.port import Port
 from hex_reader import populate_memory
 from common.constants import _IN, _OUT
 from common.utilities import get_bit, hex_formatter
+from common.command_cycles import cycles
+from common.command_cycles import REGULAR, REGISTER, MEMORY, NEXT_CMD, RET, CALL
+import common.commands as cmd
 
-command_clock_dictionary = {}  # TODO: create dictionary with commands timing
 
 class Processor:
     _MAX_LOOP = 30
@@ -25,8 +27,8 @@ class Processor:
         # set PC to 0
 
         # TODO: None parameters, should be avoided?
-        self.A = Accumulator("A", None, None)  # accumulator
         self.F = StatusRegister()
+        self.A = Accumulator("A", None, self.F)  # accumulator
 
         self.PC = ProgramCounter()
         self.SP = StackPointer()
@@ -112,7 +114,7 @@ class Processor:
         command = self.__getattribute__("_cmd_" + cmd_name + "_handler")
         return command
 
-    def _clock(self, number_of_tacts, correction):
+    def _clock(self, number_of_cycles, correction):
         pass
 
     ####################################################################################################################
@@ -134,7 +136,7 @@ class Processor:
         r.value = self.memory[self.PC.value]
         self.PC.inc()
         command_end_time = clock()
-        self._clock(command_clock_dictionary, command_end_time - command_start_time)
+        self._clock(cycles[cmd.mvi][REGISTER], command_end_time - command_start_time)
 
     def _cmd_lxi_handler(self, operand1, operand2):
         # TODO: It doesn't support LXI SP
@@ -236,6 +238,9 @@ class Processor:
 
     def _cmd_jpo_handler(self, operand1, operand2):
         raise NotImplementedError("JPO not implemented yet.")
+
+    def _cmd_pchl_handler(self, operand1, operand2):
+        raise NotImplementedError("PCHL not implemented yet.")
 
     # Call
 
@@ -417,7 +422,7 @@ class Processor:
 
     # Input/Output
 
-    # TODO: this cold not work because command named in_cmd
+    # TODO: this could not work because command named in_cmd
     def _cmd_in_handler(self, operand1, operand2):
         raise NotImplementedError("IN not implemented yet.")
 
