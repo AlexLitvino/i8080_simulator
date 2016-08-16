@@ -86,17 +86,18 @@ class Register:
     # def cpi(self):
     #     raise NotImplementedError("CPI is not implemented yet.")
 
-    def rlc(self):
-        raise NotImplementedError("RLC is not implemented yet.")
-
-    def rrc(self):
-        raise NotImplementedError("RRC is not implemented yet.")
-
-    def ral(self):
-        raise NotImplementedError("RAL is not implemented yet.")
-
-    def rar(self):
-        raise NotImplementedError("RAR is not implemented yet.")
+    # Rotate commands applied only to Accumulator
+    # def rlc(self):
+    #     raise NotImplementedError("RLC is not implemented yet.")
+    #
+    # def rrc(self):
+    #     raise NotImplementedError("RRC is not implemented yet.")
+    #
+    # def ral(self):
+    #     raise NotImplementedError("RAL is not implemented yet.")
+    #
+    # def rar(self):
+    #     raise NotImplementedError("RAR is not implemented yet.")
 
     ####################################################################################################################
     # Methods to update flags
